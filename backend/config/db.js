@@ -3,9 +3,9 @@ import { mongoUri } from "./env.js";
 async function connectDB() {
   try {
     await connect(mongoUri);
-    console.log("db connected");
+    console.log("connected");
   } catch (error) {
-    console.log("db connection error");
+    console.log("mongoDB connection error");
   }
 }
 
