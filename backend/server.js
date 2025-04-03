@@ -6,6 +6,7 @@ import compression from "compression";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import cors from "cors";
+import userRoute from "./routes/userRoute.js";
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(compression());
 app.use(cors());
 app.use(helmet());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 100 }));
+
+app.use("/api/auth", userRoute);
 
 connectDB();
 
