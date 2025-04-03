@@ -25,6 +25,12 @@ const userSchema = new Schema(
       default: "local",
       required: true,
     },
+    role: {
+      type: String,
+      enum: ["admin", "user"],
+      default: "user",
+      required: true,
+    },
     isVerified: {
       type: Boolean,
       default: false,

@@ -1,8 +1,9 @@
 import { signUpSchema } from "../validation/joiSchemas.js";
-import { hash } from "bcryptjs";
 import User from "../models/userModel.js";
-import { generateOtp, mailOtpHtml } from "../utils/utils.js";
+import { generateOtp } from "../utils/utils.js";
 import { mailer } from "../config/config.js";
+import { hashIt } from "../utils/bcrypt.js";
+import { mailOtpHtml } from "../utils/mailTemplates.js";
 export const signUp = async (req, res) => {
   try {
     const { error, value } = signUpSchema.validate(req.body);
@@ -23,8 +24,8 @@ export const signUp = async (req, res) => {
     }
     const otp = generateOtp();
 
-    const hashedOtp = await hash(otp, 10);
-    const hashedPassword = await hash(password, 10);
+    const hashedOtp = await hashIt(otp);
+    const hashedPassword = await hashIt(password);
 
     const user = new User({
       username,
