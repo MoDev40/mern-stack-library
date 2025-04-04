@@ -33,7 +33,9 @@ const userSchema = new Schema(
     },
     isVerified: {
       type: Boolean,
-      default: false,
+      default: function () {
+        return this.provider === "github" || this.provider === "google";
+      },
       required: true,
     },
     otp: {
