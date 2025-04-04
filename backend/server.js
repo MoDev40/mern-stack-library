@@ -19,6 +19,11 @@ app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 100 }));
 
 app.use("/api/auth", userRoute);
 
+app.get("/", (req, res) => {
+  const cookie = req.cookies;
+  res.json(cookie);
+});
+
 connectDB();
 
 app.use((err, req, res, next) => {
