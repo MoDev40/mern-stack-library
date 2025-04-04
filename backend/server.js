@@ -1,11 +1,11 @@
-import express, { json } from "express";
-import { port } from "./config/env.js";
-import connectDB from "./config/db.js";
-import cookieParser from "cookie-parser";
 import compression from "compression";
-import helmet from "helmet";
-import rateLimit from "express-rate-limit";
+import cookieParser from "cookie-parser";
 import cors from "cors";
+import express, { json } from "express";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import connectDB from "./config/db.js";
+import { port } from "./config/env.js";
 import userRoute from "./routes/userRoute.js";
 
 const app = express();
@@ -18,11 +18,7 @@ app.use(helmet());
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 100 }));
 
 app.use("/api/auth", userRoute);
-
-app.get("/", (req, res) => {
-  const cookie = req.cookies;
-  res.json(cookie);
-});
+app.use("/api/user", userRoute);
 
 connectDB();
 
